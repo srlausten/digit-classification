@@ -1,0 +1,35 @@
+[tool.poetry]
+name        = "digit-classification"
+version     = "0.1.0"
+description = "Solution to the Buzz Solutions digit-classification challenge."
+authors     = ["Sam Lausten <srlausten@gmail.com>"]
+readme      = "README.md"
+
+packages    = [
+  { include = "digit_classification", from = "src" }
+]
+
+license     = "MIT"
+
+[tool.poetry.dependencies]
+python      = "^3.10"
+torch       = "^2.2.0"
+torchvision = "^0.17.0"
+lightning   = "^2.2.0"
+typer       = { version = "^0.15.0", extras = ["all"] }
+rich        = "^13.7"
+numpy = "<2"
+scikit-learn = "^1.6.1"
+pre-commit = "^4.2.0"
+pytest = "^8.3.5"
+
+[tool.poetry.group.dev.dependencies]
+pytest      = "^8.0"
+pytest-cov  = "^6.0"
+
+[tool.poetry.scripts]
+digit-classification = "digit_classification.cli:app"
+
+[build-system]
+requires      = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
