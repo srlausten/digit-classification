@@ -2,9 +2,9 @@
 
 ## To-do
 
-- Update `.github/workflows/docker-cy.yml`
+- Update `.github/workflows/docker-ci.yml` to actually successfully build. This would require a personal registry setup.
 - Add a main script/loop that will download --> train --> evaluate.
 
-## v0.1.0 - May 2, 2024
+## v0.0.0 - May 2, 2024
 
-- Initial working version.
+- Initial working solution.
