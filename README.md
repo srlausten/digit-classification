@@ -10,7 +10,7 @@ This project uses an imbalanced subset of the classic MNIST dataset, which conta
 
 300 images labeled 5
 
-The full dataset consists of 5,000 images, all sourced from the MNIST training split. The model is trained using CPU only, with evaluation on a held-out 20% test split. A sample image is included below:
+The full dataset consists of 5,000 images, all sourced from the MNIST training split. The model is trained using CPU only, with evaluation on a held-out 20% test split.
 <p align="center"> <img src="assets/mnist.png" width="400"/> </p>
 
 ---
@@ -50,22 +50,22 @@ docker build -t digit-classification .
 ## 2. CLI Workflow
 
 ```bash
-# Download the dataset
+# Download the dataset to ./data/MNIST
 digit-classification download-data --data-dir ./data
 
-# Train for {n} epochs
+# Train for 10 epochs, save checkpoints to ./checkpoints
 digit-classification train \
-  --data-dir   /path/to/data/root \
-  --output-dir /path/to/your/output \
-  --epochs     {n}
+  --data-dir   ./data \
+  --output-dir ./checkpoints \
+  --epochs     10
 
-# Evaluate on test split
+# Evaluate on the 20% test split using the last saved checkpoint
 digit-classification evaluate \
-  --checkpoint-path ./runs/exp1/last.ckpt \
+  --checkpoint-path ./checkpoints/last.ckpt \
   --data-dir        ./data
 ```
 
-### 🐋 Docker (Mounted at Runtime)
+### Docker Setup
 
 Run any command with `./data` mounted as `/cache`:
 

@@ -61,7 +61,6 @@ def evaluate_checkpoint(
             y_true.extend(y_raw.tolist())
             y_pred.extend([_IDX_TO_DIGIT[int(i)] for i in pred_idx])
 
-    # Build report using original digit labels (0, 5, 8)
     report = classification_report(
         y_true,
         y_pred,
