@@ -13,14 +13,16 @@ from digit_classification.evaluation import evaluate_checkpoint
 from digit_classification.model import DigitClassifier
 from digit_classification.constants import TX
 
-app = typer.Typer(help="Digit-classification CLI")
+app = typer.Typer(help="Digit‑classification CLI")
 
 
 @app.command("download-data")
 def download_data(
-    data_dir: Path = typer.Option(..., "--data-dir", help="Target data directory."),
+    data_dir: Path = typer.Option(
+        ..., "--data-dir", "-d", help="Target data directory."
+    ),
 ) -> None:
-    """Download the full 60k-image MNIST training split."""
+    """Download the full 60 k‑image MNIST training split."""
     get_raw_mnist(data_dir)
     print(f"[green]MNIST downloaded to {data_dir/'MNIST'}[/]")
 
@@ -28,21 +30,28 @@ def download_data(
 @app.command("train")
 def train(
     data_dir: Path = typer.Option(
-        ..., "--data-dir", help="Directory containing MNIST data."
+        ..., "--data-dir", "-d", help="Directory containing MNIST data."
     ),
     output_dir: Path = typer.Option(
-        ..., "--output-dir", help="Directory to save checkpoints."
+        ..., "--output-dir", "-o", help="Directory to save checkpoints and logs."
     ),
     epochs: int = typer.Option(
-        20, "--epochs", min=1, help="Number of epochs (max 20)."
+        20, "--epochs", "-e", min=1, help="Number of epochs (max 20)."
     ),
     batch_size: int = typer.Option(
-        64, "--batch-size", min=1, help="Training batch size."
+        64, "--batch-size", "-b", min=1, help="Training batch size."
     ),
-    lr: float = typer.Option(1e-3, "--lr", help="Learning rate."),
-    seed: Optional[int] = typer.Option(None, "--seed", help="Override RNG seed."),
+    lr: float = typer.Option(1e-3, "--lr", "-l", help="Learning rate."),
+    num_workers: int = typer.Option(
+        0,
+        "--num-workers",
+        "-w",
+        min=0,
+        help="Dataloader worker processes.",
+    ),
+    seed: Optional[int] = typer.Option(None, "--seed", "-s", help="Override RNG seed."),
 ) -> None:
-    """Train DigitClassifier on the subset and save to last.ckpt."""
+    """Train *DigitClassifier* on the subset."""
     if epochs > 20:
         raise typer.BadParameter("`epochs` must be 20 or fewer.")
 
@@ -52,7 +61,7 @@ def train(
     train_dl, val_dl = build_dataloaders(
         data_dir,
         batch_size=batch_size,
-        num_workers=0,
+        num_workers=num_workers,
     )
     model = DigitClassifier(lr=lr)
 
@@ -84,14 +93,16 @@ def train(
 @app.command("evaluate")
 def evaluate(
     checkpoint_path: Path = typer.Option(
-        ..., "--checkpoint-path", help="Checkpoint file path."
+        ..., "--checkpoint-path", "-c", help="Checkpoint file path."
     ),
     data_dir: Path = typer.Option(
-        ..., "--data-dir", help="Root Directory containing MNIST data."
+        ..., "--data-dir", "-d", help="Root directory containing MNIST data."
     ),
-    batch_size: int = typer.Option(512, "--batch-size", help="Evaluation batch size."),
+    batch_size: int = typer.Option(
+        512, "--batch-size", "-b", help="Evaluation batch size."
+    ),
 ) -> None:
-    """Logs metrics on the 20% test split."""
+    """Log metrics on the held‑out test split."""
     report, acc = evaluate_checkpoint(
         checkpoint_path,
         data_dir,
@@ -104,10 +115,10 @@ def evaluate(
 @app.command("predict")
 def predict(
     checkpoint_path: Path = typer.Option(
-        ..., "--checkpoint-path", help="Checkpoint file path."
+        ..., "--checkpoint-path", "-c", help="Checkpoint file path."
     ),
     input_path: Path = typer.Option(
-        ..., "--input-path", help="Path to input image file."
+        ..., "--input-path", "-i", help="Path to input image file."
     ),
 ) -> None:
     """Predict the digit for a single image."""

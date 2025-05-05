@@ -30,9 +30,9 @@ Install dependencies with [**pyenv**](https://github.com/pyenv/pyenv) and [**Poe
 
 ```bash
 pyenv install 3.11.12
-pipx install poetry==1.8.1
+pip install poetry==1.8.1
 
-git clone https://github.com/your-org/digit-classification.git
+git clone https://github.com/srlausten/digit-classification.git
 cd digit-classification
 poetry install
 ```
@@ -47,7 +47,7 @@ docker build -t digit-classification .
 
 ---
 
-## 2. CLI Workflow
+## 2. CLI Workflow Example
 
 ```bash
 # Download the dataset to ./data/MNIST
@@ -63,6 +63,14 @@ digit-classification train \
 digit-classification evaluate \
   --checkpoint-path ./checkpoints/last.ckpt \
   --data-dir        ./data
+
+# Predict a digit (0, 5, or 8) from an image
+digit-classification predict \
+  --checkpoint-path ./checkpoints/last.ckpt \
+  --input-path      ./assets/0.png
+
+# Optional: Launch tensorboard to visualize training
+poetry run tensorboard --logdir ./checkpoints/lightning_logs
 ```
 
 ### Docker Setup
@@ -115,4 +123,4 @@ poetry run pre-commit run --all-files
 
 ## License
 
-MIT License © 2025 [Sam Lausten](https://github.com/srlausten)
+MIT License
