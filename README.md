@@ -11,7 +11,8 @@ This project uses an imbalanced subset of the classic MNIST dataset, which conta
 300 images labeled 5
 
 The full dataset consists of 5,000 images, all sourced from the MNIST training split. The model is trained using CPU only, with evaluation on a held-out 20% test split. A sample image is included below:
-<p align="center"> <img src="assets/mnist.png" width="100"/> </p>
+<p align="center"> <img src="assets/mnist.png" width="400"/> </p>
+
 ---
 
 ### Testing & Coverage Summary
