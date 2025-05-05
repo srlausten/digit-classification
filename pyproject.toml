@@ -1,7 +1,7 @@
 [tool.poetry]
 name        = "digit-classification"
 version     = "0.1.0"
-description = "Digit classification PyTorch CLI"
+description = "Digit classification Model Package for MNIST Dataset"
 authors     = ["Sam Lausten <srlausten@gmail.com>"]
 readme      = "README.md"
 
