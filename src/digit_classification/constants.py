@@ -10,6 +10,10 @@ CLASS_COUNTS: dict[int, int] = {
     5: 300,
 }
 
+_DIGITS = [0, 5, 8]
+_IDX_TO_DIGIT = {idx: digit for idx, digit in enumerate(_DIGITS)}
+_DIGIT_TO_IDX = {digit: idx for idx, digit in _IDX_TO_DIGIT.items()}
+
 # Test split fraction
 TEST_FRAC: float = 0.20
 

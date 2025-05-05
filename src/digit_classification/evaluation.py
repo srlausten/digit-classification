@@ -5,13 +5,9 @@ import torch
 from sklearn.metrics import classification_report
 from torch.utils.data import DataLoader
 
-from .data import build_dataloaders
-from .model import DigitClassifier
-
-
-_DIGITS = [0, 5, 8]
-_IDX_TO_DIGIT = {idx: digit for idx, digit in enumerate(_DIGITS)}
-_DIGIT_TO_IDX = {digit: idx for idx, digit in _IDX_TO_DIGIT.items()}
+from digit_classification.data import build_dataloaders
+from digit_classification.model import DigitClassifier
+from digit_classification.constants import _IDX_TO_DIGIT, _DIGITS
 
 
 def _load_test_loader(data_dir: str | Path, batch_size: int) -> DataLoader:

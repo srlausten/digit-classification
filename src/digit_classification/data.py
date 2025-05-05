@@ -6,18 +6,12 @@ import torch
 from torch.utils.data import DataLoader, Dataset, Subset, random_split
 from torchvision.datasets import MNIST
 
-from .constants import _MIRROR, TX, SEED, CLASS_COUNTS, TEST_FRAC
-
-
-class _MNIST(MNIST):
-    """MNIST dataset loader."""
-
-    mirrors = [_MIRROR]
+from digit_classification.constants import TX, SEED, CLASS_COUNTS, TEST_FRAC
 
 
 def get_raw_mnist(root: str | Path) -> MNIST:
     root = Path(root).expanduser()
-    return MNIST(root=str(root / "MNIST"), train=True, transform=TX, download=True)
+    return MNIST(root=str(root), train=True, transform=TX, download=True)
 
 
 def make_subset(ds: MNIST) -> Subset:

@@ -7,10 +7,11 @@ import torch
 from PIL import Image
 from rich import print
 
-from .data import build_dataloaders, get_raw_mnist
-from .evaluation import evaluate_checkpoint
-from .model import DigitClassifier
-from .constants import TX
+from lightning.pytorch.loggers import TensorBoardLogger
+from digit_classification.data import build_dataloaders, get_raw_mnist
+from digit_classification.evaluation import evaluate_checkpoint
+from digit_classification.model import DigitClassifier
+from digit_classification.constants import TX
 
 app = typer.Typer(help="Digit-classification CLI")
 
@@ -55,8 +56,14 @@ def train(
     )
     model = DigitClassifier(lr=lr)
 
+    logger = TensorBoardLogger(
+        save_dir=str(output_dir),
+        name="lightning_logs",
+    )
+
     trainer = L.Trainer(
         default_root_dir=str(output_dir),
+        logger=logger,
         accelerator="cpu",
         max_epochs=epochs,
         log_every_n_steps=10,
@@ -103,7 +110,7 @@ def predict(
         ..., "--input-path", help="Path to input image file."
     ),
 ) -> None:
-    """Predict the digit (0, 5, 8) for a single 28×28 image file."""
+    """Predict the digit for a single image."""
     img = Image.open(input_path).convert("L").resize((28, 28))
     tensor = TX(img).unsqueeze(0)
 
