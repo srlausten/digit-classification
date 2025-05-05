@@ -21,10 +21,10 @@ class DigitClassifier(LightningModule):
         self.net: nn.Sequential = nn.Sequential(
             nn.Conv2d(1, 32, kernel_size=3, padding=1),  # 28×28 → 28×28
             nn.ReLU(),
-            nn.MaxPool2d(2),                             # 14×14
+            nn.MaxPool2d(2),  # 14×14
             nn.Conv2d(32, 64, kernel_size=3, padding=1),
             nn.ReLU(),
-            nn.MaxPool2d(2),                             # 7×7
+            nn.MaxPool2d(2),  # 7×7
             nn.Flatten(),
             nn.Linear(7 * 7 * 64, 128),
             nn.ReLU(),
@@ -37,12 +37,10 @@ class DigitClassifier(LightningModule):
         """Return the Adam optimizer with the LR from ``self.hparams.lr``."""
         return torch.optim.Adam(self.parameters(), lr=self.hparams.lr)
 
-    # The forward pass is needed for ``self(x)`` or scripted modules.
     def forward(self, x: torch.Tensor) -> torch.Tensor:  # type: ignore[override]
         """Return *logits* (unnormalized scores), shape (B, 3)."""
         return self.net(x)
 
-    # Shared code for training/validation
     def _step(self, batch: tuple[torch.Tensor, torch.Tensor], stage: str):
         x, y_raw = batch
         y = torch.tensor([_LABEL_TO_IDX[int(lbl)] for lbl in y_raw], device=self.device)
@@ -63,7 +61,6 @@ class DigitClassifier(LightningModule):
         """Validation metric update (no gradient)."""
         self._step(batch, "val")
 
-
     def predict_step(self, batch, _batch_idx, _dataloader_idx: int = 0):
         """
         Given a batch of images, return a list of dicts:
@@ -71,8 +68,10 @@ class DigitClassifier(LightningModule):
         ``[{0: p0, 5: p5, 8: p8}, …]`` where p? are probabilities ∈ [0, 1].
         """
         images, _ = batch
-        probs = F.softmax(self(images), dim=1)  # (B, 3)
+        probs = F.softmax(self(images), dim=1)
         preds = []
         for row in probs:
-            preds.append({digit: float(row[idx]) for idx, digit in _IDX_TO_LABEL.items()})
+            preds.append(
+                {digit: float(row[idx]) for idx, digit in _IDX_TO_LABEL.items()}
+            )
         return preds

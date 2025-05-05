@@ -1,8 +1,9 @@
-# Changelog - BUZZ Digit Classification
+# Changelog - Digit Classification
 
 ## To-do
 
-- Finish CI/CD solution based on BUZZ's build infrastucture.
+- Update `.github/workflows/docker-cy.yml`
+- Add a main script/loop that will download --> train --> evaluate.
 
 ## v0.1.0 - May 2, 2024
 

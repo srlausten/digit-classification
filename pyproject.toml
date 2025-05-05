@@ -1,7 +1,7 @@
 [tool.poetry]
 name        = "digit-classification"
 version     = "0.1.0"
-description = "Solution to the Buzz Solutions digit-classification challenge."
+description = "Digit classification PyTorch CLI"
 authors     = ["Sam Lausten <srlausten@gmail.com>"]
 readme      = "README.md"
 
@@ -22,6 +22,7 @@ numpy = "<2"
 scikit-learn = "^1.6.1"
 pre-commit = "^4.2.0"
 pytest = "^8.3.5"
+torchmetrics = "^1.7.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest      = "^8.0"

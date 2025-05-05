@@ -1,13 +1,20 @@
-# 📊 Digit Classification CLI
+# Digit Classification CLI
 
 A Pakage for classifying digits **0 · 5 · 8** using an imbalanced MNIST subset:
 **3,500×8 | 1,200×0 | 300×5** (5,000 images total, CPU-only).
 
 ---
 
-## 🚀 1. Installation
+### Testing & Coverage Summary
 
-### 🖥️ Local (Python 3.11+)
+🟢 **Tests Passing**
+📈 **Coverage:** [81% – View Report](htmlcov/index.html)
+
+---
+
+## 1. Installation
+
+### Local (Python 3.11+)
 
 Install dependencies with [**pyenv**](https://github.com/pyenv/pyenv) and [**Poetry**](https://python-poetry.org/docs/):
 
@@ -20,7 +27,7 @@ cd digit-classification
 poetry install
 ```
 
-### 🐳 Docker
+### Docker
 
 Build the container from the included [Dockerfile](https://docs.docker.com/engine/reference/builder/):
 
@@ -30,7 +37,7 @@ docker build -t digit-classification .
 
 ---
 
-## 🎯 2. CLI Workflow
+## 2. CLI Workflow
 
 ```bash
 # Download the dataset
@@ -66,7 +73,7 @@ Repeat the same `-v $(pwd)/data:/cache` mount for `train`, `evaluate`, etc.
 | Command         | Description                        | Key Flags                                |
 | --------------- | ---------------------------------- | ---------------------------------------- |
 | `download-data` | Download MNIST subset              | `--data-dir`                             |
-| `train`         | Train CNN on CPU                   | `--data-dir`, `--output-dir`, `--epochs` |
+| `train`         | Train CNN                   | `--data-dir`, `--output-dir`, `--epochs` |
 | `evaluate`      | Evaluate on test set               | `--checkpoint-path`, `--data-dir`        |
 | `predict`       | Predict single image probabilities | `--checkpoint-path`, `--input-path`      |
 
@@ -85,7 +92,7 @@ poetry run pre-commit run --all-files
 
 ---
 
-## 5. Environment
+## 5. Local Environment Tested On
 
 | Component | Version                                             |
 | --------- | --------------------------------------------------- |
@@ -96,6 +103,6 @@ poetry run pre-commit run --all-files
 
 ---
 
-## 📄 License
+## License
 
 MIT License © 2025 [Sam Lausten](https://github.com/srlausten)

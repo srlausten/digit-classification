@@ -32,11 +32,11 @@ def evaluate_checkpoint(
     Parameters
     ----------
     checkpoint_path
-        Path to a ``.ckpt`` file produced by Lightning.
+        Path to a model ``.ckpt`` file.
     data_dir
-        Directory containing the raw MNIST files (download on first use).
+        Directory containing the raw MNIST files.
     batch_size
-        Batch size for the evaluation loader (no gradients, so can be large).
+        Batch size for the evaluation loader.
 
     Returns
     -------
