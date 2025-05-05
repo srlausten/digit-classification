@@ -1,14 +1,23 @@
 # Digit Classification CLI
 
-A Pakage for classifying digits **0 · 5 · 8** using an imbalanced MNIST subset:
-**3,500×8 | 1,200×0 | 300×5** (5,000 images total, CPU-only).
+A Python package for training, evaluating, and deploying a digit classifier on a curated subset of the MNIST dataset using a command-line interface.
 
+This project uses an imbalanced subset of the classic MNIST dataset, which contains grayscale 28×28 handwritten digit images. We focus on three digit classes: 0, 5, and 8, selected to create a realistic class imbalance scenario:
+
+3,500 images labeled 8
+
+1,200 images labeled 0
+
+300 images labeled 5
+
+The full dataset consists of 5,000 images, all sourced from the MNIST training split. The model is trained using CPU only, with evaluation on a held-out 20% test split. A sample image is included below:
+<p align="center"> <img src="assets/mnist.png" width="100"/> </p>
 ---
 
 ### Testing & Coverage Summary
 
-🟢 **Tests Passing**
-📈 **Coverage:** [81% – View Report](htmlcov/index.html)
+- 🟢 **Tests Passing**
+- **Coverage:** [81% – View Report](htmlcov/index.html)
 
 ---
 
