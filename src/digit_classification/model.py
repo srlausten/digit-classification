@@ -4,15 +4,17 @@ from lightning.pytorch import LightningModule
 from torch import nn
 from torchmetrics.classification import MulticlassAccuracy
 
-
-_DIGITS = [0, 5, 8]
-_NUM_CLASSES = len(_DIGITS)
-_LABEL_TO_IDX = {d: i for i, d in enumerate(_DIGITS)}  # 0->0, 5->1, 8->2
-_IDX_TO_LABEL = {v: k for k, v in _LABEL_TO_IDX.items()}
+from digit_classification.constants import _NUM_CLASSES, _LABEL_TO_IDX, _IDX_TO_LABEL
 
 
 class DigitClassifier(LightningModule):
-    """Simple CNN → logits(3) → probabilities(3)."""
+    """
+    A simple CNN for classifying digits 0, 5, and 8.
+
+    - Two convolutional layers with ReLU and MaxPooling
+    - Two fully connected layers for final classification
+    - Outputs raw logits for 3 classes
+    """
 
     def __init__(self, lr: float = 1e-3) -> None:
         super().__init__()
@@ -65,7 +67,7 @@ class DigitClassifier(LightningModule):
         """
         Given a batch of images, return a list of dicts:
 
-        ``[{0: p0, 5: p5, 8: p8}, …]`` where p? are probabilities ∈ [0, 1].
+        ``[{0: p0, 5: p5, 8: p8}, …]`` where p? are probabilities [0, 1].
         """
         images, _ = batch
         probs = F.softmax(self(images), dim=1)
